@@ -1,4 +1,4 @@
-package com.equalizer;
+package com.equalizador;
 
 import android.media.MediaPlayer;
 import android.widget.Toast;

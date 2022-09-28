@@ -1,52 +1,53 @@
 import React from 'react';
+
 import {
   SafeAreaView,
   ScrollView,
   StatusBar,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  useColorScheme,
-  View,
 } from 'react-native';
-
-import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 
 import {NativeModules} from 'react-native';
 const {EqualizerModule} = NativeModules;
 
-function changeToEqualizer() {
-  return EqualizerModule.createEqualizer();
-}
-
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+export default function App() {
+  function changeToEqualizer() {
+    return EqualizerModule.createEqualizer();
+  }
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Text>Equalizador</Text>
-          <TouchableOpacity onPress={changeToEqualizer}>
-            <Text>Chamar Modulo Nativo</Text>
-          </TouchableOpacity>
-        </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <StatusBar barStyle="light-content" backgroundColor="transparent" />
+        <Text style={styles.title}>Equalizador</Text>
+        <TouchableOpacity onPress={changeToEqualizer}>
+          <Text style={styles.button}>Chamar Modulo Nativo</Text>
+        </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
   );
-};
+}
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: '#2c2c2c',
+  },
+  title: {
+    fontSize: 24,
+    textAlign: 'center',
+    marginVertical: 32,
+  },
+  button: {
+    backgroundColor: '#f77f00',
+    color: '#2c2c2c',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    padding: 16,
+
+    borderRadius: 16,
+  },
+});
